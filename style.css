@@ -1,0 +1,179 @@
+/* Reset CSS */
+* {
+  font: inherit;
+  box-sizing: border-box; /* Incluido aquí para consistencia */
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+img, video, svg {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: 'Quicksand', sans-serif;
+  background-color: #e6ccf5;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+h1, h2, h3 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
+/* Layout */
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra horizontalmente */
+  min-height: 100vh; /* Asegura que el main ocupe toda la altura de la ventana */
+  position: relative; /* Para poder posicionar los botones absolutamente dentro */
+}
+.container-letter {
+  position: relative;
+}
+
+/* Carta */
+.cover {
+  position: absolute;
+  border-left: 200px solid transparent;
+  border-right: 200px solid transparent;
+  border-top: 100px solid #9d5bd9;
+  border-bottom: 100px solid transparent;
+  transition: transform 0.75s, opacity 0.5s, visibility 0.5s, z-index 0s 0.5s;
+  transform-origin: top;
+  z-index: 0; /* Asegura que la tapa esté encima inicialmente */
+}
+.paper {
+  position: absolute;
+  padding: 2rem;
+  line-height: 1.8rem;
+  right: 5px;
+  z-index: -1;
+  background: #fffafd;
+  width: 390px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(176, 124, 184, 0.25);
+  transition: all 0.75s;
+  overflow-y: auto;
+  font-size: 1rem;
+  top: 150px; /* Subir el paper */
+  opacity: 0; /* Inicialmente invisible */
+  visibility: hidden; /* Inicialmente oculto */
+}
+
+/* Scroll bonito */
+.paper::-webkit-scrollbar {
+  width: 8px;
+}
+.paper::-webkit-scrollbar-track {
+  background: #f1e6f6;
+  border-radius: 10px;
+}
+.paper::-webkit-scrollbar-thumb {
+  background: #c58fd4;
+  border-radius: 10px;
+}
+.paper::-webkit-scrollbar-thumb:hover {
+  background: #aa6db5;
+}
+
+.letter {
+  border-left: 200px solid #d9a4ff;
+  border-right: 200px solid #d9a4ff;
+  border-top: 100px solid transparent;
+  border-bottom: 100px solid #ce8cff;
+  transition: opacity 0.5s, visibility 0.5s; /* Transición para la desaparición */
+}
+
+/* Botones */
+.options {
+  display: flex;
+  gap: 5rem;
+  position: absolute; /* Posicionamiento absoluto dentro de main */
+  bottom: 5rem; /* Bajar los botones */
+  left: 50%; /* Centrado horizontalmente */
+  transform: translateX(-50%); /* Ajuste para el centrado */
+  transition: transform 0.3s ease-in-out; /* Transición suave para el desplazamiento */
+}
+
+.options.open-options {
+  transform: translateX(200px); /* Desplazar los botones más a la derecha */
+}
+
+.options button {
+  color: #7928a3;
+  font-weight: 600;
+  border-radius: 6px;
+  background: #f6e1ff;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #ab68d6;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease; /* Transición para otros efectos del botón */
+}
+
+.options button:hover {
+  background: #d9a4ff;
+  color: white;
+}
+
+/* Animaciones */
+.open-cover {
+  transform: rotatex(180deg);
+  opacity: 0; /* Desaparecer la tapa */
+  visibility: hidden;
+  z-index: -1; /* Poner la tapa detrás del papel al abrir */
+}
+.open-paper {
+  animation: openPaper 0.5s forwards;
+  opacity: 1; /* Hacer visible la carta */
+  visibility: visible;
+  top: -230px; /* Ajustar la posición final al abrir para que coincida con el nuevo top inicial */
+}
+@keyframes openPaper {
+  0% { top: 150px; opacity: 0; visibility: hidden; } /* Ajustar la posición inicial */
+  100% { top: -230px; opacity: 1; visibility: visible; } /* Ajustar la posición final */
+}
+.close-paper {
+  animation: closePaper 0.5s forwards;
+  opacity: 0; /* Hacer invisible la carta */
+  visibility: hidden;
+  top: 150px; /* Devolver a la posición inicial */
+}
+@keyframes closePaper {
+  0% { top: -230px; opacity: 1; visibility: visible; } /* Ajustar la posición inicial */
+  100% { top: 150px; opacity: 0; visibility: hidden; } /* Ajustar la posición final */
+}
+.heart {
+  display: none;
+  position: absolute;
+  top: 20%; /* Ajustar la posición vertical del corazón si es necesario */
+  left: 46.5%;
+  margin: auto;
+  font-size: 3rem;
+  color: #d653e3;
+  opacity: 0; /* Inicialmente invisible */
+  transition: opacity 0.3s ease-in-out; /* Transición suave para la opacidad */
+  animation: crecer 1s forwards;
+}
+@keyframes crecer {
+  0% {
+      scale: 1;
+      opacity: 1;
+  }
+  100% {
+      scale: 3;
+      opacity: 0;
+  }
+}
